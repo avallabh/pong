@@ -25,15 +25,14 @@ class Ball
       @y = Pong::HEIGHT
       bounce_off_edge!
     end
-
-    if @x < 0
-      @x = 0
-      @angle = Gosu.angle(0, 0, -dx, dy)
-    end
-    if @x > Pong::WIDTH
-      @x = Pong::WIDTH
-      @angle = Gosu.angle(0, 0, -dx, dy)
-    end
+    # if @x < 0
+    #   @x = 0
+    #   @angle = Gosu.angle(0, 0, -dx, dy)
+    # end
+    # if @x > Pong::WIDTH
+    #   @x = Pong::WIDTH
+    #   @angle = Gosu.angle(0, 0, -dx, dy)
+    # end
   end
 
   def bounce_off_edge!
