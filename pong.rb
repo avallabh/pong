@@ -19,7 +19,7 @@ class Pong < Hasu::Window
     @right_score = 0
     @font = Gosu::Font.new(self, "Arial", 30)
 
-    @left_paddle = Paddle.new(:left)
+    @left_paddle = Paddle.new(:left, true)
     @right_paddle = Paddle.new(:right)
   end
 
@@ -36,13 +36,16 @@ class Pong < Hasu::Window
   def update
     @ball.move!
 
-    if button_down?(Gosu::KbW)
-      @left_paddle.up!
+    if @left_paddle.ai?
+      @left_paddle.ai_move!(@ball)
+    else
+      if button_down?(Gosu::KbW)
+        @left_paddle.up!
+      end
+      if button_down?(Gosu::KbS)
+        @left_paddle.down!
+      end
     end
-    if button_down?(Gosu::KbS)
-      @left_paddle.down!
-    end
-
     if button_down?(Gosu::KbUp)
       @right_paddle.up!
     end
@@ -67,6 +70,14 @@ class Pong < Hasu::Window
     end
 
   end
+
+  def button_down(button)
+    case button
+    when Gosu::KbEscape
+      close
+    end
+  end
+
 end
 
 Pong.run
